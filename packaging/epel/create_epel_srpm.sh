@@ -20,7 +20,8 @@ cp ${SCRIPTPATH}/convert2rhel.spec convert2rhel.spec
 rpmlint convert2rhel.spec
 
 TIMESTAMP=`date +%Y%m%d%H%MZ -u`
-GIT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+COMMIT_HASH=`git rev-parse HEAD`
+GIT_BRANCH=`git branch --contains ${COMMIT_HASH} | awk  '{print $2}'`
 RELEASE="0"
 [ "${GIT_BRANCH}" = "master" ] && RELEASE="1"
 if [ "$CHANGE_RELEASE" = true ]; then
